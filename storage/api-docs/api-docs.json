@@ -1,0 +1,481 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Employee Task Manager API",
+        "description": "The Task and Employee Management API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/departments": {
+            "get": {
+                "tags": [
+                    "Departments"
+                ],
+                "summary": "Returns a list of departments",
+                "operationId": "da8820891dd6bf08713e9d77fbe6389f",
+                "responses": {
+                    "200": {
+                        "description": "List of departments",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Department"
+                                            }
+                                        },
+                                        "meta": {
+                                            "$ref": "#/components/schemas/PaginationMeta"
+                                        },
+                                        "links": {
+                                            "$ref": "#/components/schemas/PaginationLinks"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Departments"
+                ],
+                "summary": "Create a new department",
+                "operationId": "c0f48115550ccf6a76b43ff263bfc05c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "HR Department"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Department created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Department"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "name": [
+                                                    "The name field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalServerError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/departments/{id}": {
+            "get": {
+                "tags": [
+                    "Departments"
+                ],
+                "summary": "Get a department by ID",
+                "operationId": "ecdae8bd198987eca46831ced8777bba",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the department",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Department details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Department"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Department not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundError"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalServerError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Departments"
+                ],
+                "summary": "Update a department by ID",
+                "operationId": "1d6fe343b0c809ce2a0722693aed793d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the department",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "HR Department"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Department details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Department"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Department not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundError"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "name": [
+                                                    "The name field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalServerError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Departments"
+                ],
+                "summary": "Delete a department by ID",
+                "operationId": "5cc7aebc708fbbbeb04b81504f62b499",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the department",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Department deleted successfully"
+                    },
+                    "404": {
+                        "description": "Department not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundError"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalServerError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "PaginationMeta": {
+                "title": "Pagination Meta",
+                "description": "Pagination meta information",
+                "properties": {
+                    "current_page": {
+                        "description": "Current page number",
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "from": {
+                        "description": "Starting record number",
+                        "type": "integer",
+                        "example": 31
+                    },
+                    "last_page": {
+                        "description": "Last page number",
+                        "type": "integer",
+                        "example": 5
+                    },
+                    "path": {
+                        "description": "URL of the current page",
+                        "type": "string",
+                        "example": "https://example.com/api/departments"
+                    },
+                    "per_page": {
+                        "description": "Number of records per page",
+                        "type": "integer",
+                        "example": 15
+                    },
+                    "to": {
+                        "description": "Ending record number",
+                        "type": "integer",
+                        "example": 45
+                    },
+                    "total": {
+                        "description": "Total number of records",
+                        "type": "integer",
+                        "example": 15
+                    }
+                },
+                "type": "object"
+            },
+            "PaginationLinks": {
+                "title": "Pagination Links",
+                "description": "Pagination links",
+                "properties": {
+                    "first": {
+                        "type": "string",
+                        "example": "https://example.com/api/departments?page=1"
+                    },
+                    "last": {
+                        "type": "string",
+                        "example": "https://example.com/api/departments?page=5"
+                    },
+                    "prev": {
+                        "type": "string",
+                        "example": "https://example.com/api/departments?page=2"
+                    },
+                    "next": {
+                        "type": "string",
+                        "example": "https://example.com/api/departments?page=4"
+                    }
+                },
+                "type": "object"
+            },
+            "NotFoundError": {
+                "title": "Not Found Error",
+                "description": "Response for resource not found errors",
+                "properties": {
+                    "error_code": {
+                        "type": "integer",
+                        "format": "int32",
+                        "example": 404
+                    },
+                    "timestamp": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1678905678
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Resource not found"
+                    }
+                },
+                "type": "object"
+            },
+            "InternalServerError": {
+                "title": "Internal Server Error",
+                "description": "Response for internal server errors",
+                "properties": {
+                    "error_code": {
+                        "type": "integer",
+                        "format": "int32",
+                        "example": 500
+                    },
+                    "timestamp": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1678905678
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Internal server error"
+                    }
+                },
+                "type": "object"
+            },
+            "Department": {
+                "title": "Department",
+                "description": "Department model",
+                "properties": {
+                    "id": {
+                        "description": "Department ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "1"
+                    },
+                    "name": {
+                        "description": "Department name",
+                        "type": "string",
+                        "example": "HR Department"
+                    },
+                    "created_at": {
+                        "description": "Department creation date",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-08-01T01:41:44.000000Z"
+                    },
+                    "updated_at": {
+                        "description": "Date of last department update",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-08-01T02:15:10.000000Z"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Departments",
+            "description": "Endpoints for managing departments"
+        }
+    ]
+}

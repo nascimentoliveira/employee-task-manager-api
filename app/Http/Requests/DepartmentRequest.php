@@ -18,13 +18,13 @@ class DepartmentRequest extends FormRequest
     public function rules(): array
     {
         $id = $this->route('department');
-
+        
         $rules = [
             'name' => 'required|string',
         ];
 
         if ($id !== null) {
-            $rules['name'] .= '|unique:departments,name,' . $id;
+            $rules['name'] .= ',name,' . $id;
         }
 
         return $rules;
