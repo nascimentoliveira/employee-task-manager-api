@@ -12,7 +12,7 @@ class DepartmentResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'created' => $this->created_at
+            'created' => $this->created_at,
         ];
     }
 }
