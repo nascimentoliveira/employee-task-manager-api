@@ -43,7 +43,7 @@ class Handler extends ExceptionHandler
             return response()->json([
                 'error_code' => HttpResponse::HTTP_NOT_FOUND,
                 'timestamp' => now()->timestamp,
-                'message' => 'Resource not found'
+                'message' => class_basename($exception->getModel()) .' not found'
             ], HttpResponse::HTTP_NOT_FOUND);
         }
 

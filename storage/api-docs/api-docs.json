@@ -52,6 +52,7 @@
                 "summary": "Create a new department",
                 "operationId": "c0f48115550ccf6a76b43ff263bfc05c",
                 "requestBody": {
+                    "description": "Department object that needs to be added",
                     "required": true,
                     "content": {
                         "application/json": {
@@ -203,6 +204,7 @@
                     }
                 ],
                 "requestBody": {
+                    "description": "Department object that needs to be updated",
                     "required": true,
                     "content": {
                         "application/json": {
@@ -329,6 +331,374 @@
                     }
                 ]
             }
+        },
+        "/api/employees": {
+            "get": {
+                "tags": [
+                    "Employees"
+                ],
+                "summary": "Returns a list of employees",
+                "operationId": "7fc06f144c1cd7925c5c391a6609f02d",
+                "responses": {
+                    "200": {
+                        "description": "List of employees",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Employee"
+                                            }
+                                        },
+                                        "meta": {
+                                            "$ref": "#/components/schemas/PaginationMeta"
+                                        },
+                                        "links": {
+                                            "$ref": "#/components/schemas/PaginationLinks"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Employees"
+                ],
+                "summary": "Create a new employee",
+                "operationId": "bfad4edec29b0edbd684a0afbd847510",
+                "requestBody": {
+                    "description": "Employee object that needs to be added",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "firstName": {
+                                        "description": "First name of the employee",
+                                        "type": "string",
+                                        "example": "John"
+                                    },
+                                    "lastName": {
+                                        "description": "Last name of the employee",
+                                        "type": "string",
+                                        "example": "Doe"
+                                    },
+                                    "email": {
+                                        "description": "Email address of the employee",
+                                        "type": "string",
+                                        "example": "john.doe@example.com"
+                                    },
+                                    "phone": {
+                                        "description": "Phone number of the employee",
+                                        "type": "string",
+                                        "example": "123-456-7890"
+                                    },
+                                    "department_id": {
+                                        "description": "ID of the department to which the employee belongs",
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Employee created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Employee"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "firstName": [
+                                                    "The firstName field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalServerError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/employees/{id}": {
+            "get": {
+                "tags": [
+                    "Employees"
+                ],
+                "summary": "Get a employee by ID",
+                "operationId": "d53e117f7e819b6f063fc96ea910eb75",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the employee",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Employee details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Employee"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Employee not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundError"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalServerError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Employees"
+                ],
+                "summary": "Update a employee by ID",
+                "operationId": "aab9bddc0c5cab0acc27a9d58b9cb2b0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the employee",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Employee object that needs to be updated",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "firstName": {
+                                        "description": "First name of the employee",
+                                        "type": "string",
+                                        "example": "John"
+                                    },
+                                    "lastName": {
+                                        "description": "Last name of the employee",
+                                        "type": "string",
+                                        "example": "Doe"
+                                    },
+                                    "email": {
+                                        "description": "Email address of the employee",
+                                        "type": "string",
+                                        "example": "john.doe@example.com"
+                                    },
+                                    "phone": {
+                                        "description": "Phone number of the employee",
+                                        "type": "string",
+                                        "example": "123-456-7890"
+                                    },
+                                    "department_id": {
+                                        "description": "ID of the department to which the employee belongs",
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Employee details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Employee"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Employee not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundError"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "firstName": [
+                                                    "The firstName field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalServerError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Employees"
+                ],
+                "summary": "Delete a employee by ID",
+                "operationId": "4743ab328b7641983d97c047c641038f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the employee",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Employee deleted successfully"
+                    },
+                    "404": {
+                        "description": "Employee not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFoundError"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalServerError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -355,7 +725,7 @@
                     "path": {
                         "description": "URL of the current page",
                         "type": "string",
-                        "example": "https://example.com/api/departments"
+                        "example": "https://example.com/api/resource"
                     },
                     "per_page": {
                         "description": "Number of records per page",
@@ -377,23 +747,27 @@
             },
             "PaginationLinks": {
                 "title": "Pagination Links",
-                "description": "Pagination links",
+                "description": "Links to navigate between paginated results",
                 "properties": {
                     "first": {
+                        "description": "URL of the first page",
                         "type": "string",
-                        "example": "https://example.com/api/departments?page=1"
+                        "example": "https://example.com/api/resource?page=1"
                     },
                     "last": {
+                        "description": "URL of the last page",
                         "type": "string",
-                        "example": "https://example.com/api/departments?page=5"
+                        "example": "https://example.com/api/resource?page=5"
                     },
                     "prev": {
+                        "description": "URL of the previous page",
                         "type": "string",
-                        "example": "https://example.com/api/departments?page=2"
+                        "example": "https://example.com/api/resource?page=2"
                     },
                     "next": {
+                        "description": "URL of the next page",
                         "type": "string",
-                        "example": "https://example.com/api/departments?page=4"
+                        "example": "https://example.com/api/resource?page=4"
                     }
                 },
                 "type": "object"
@@ -469,6 +843,57 @@
                     }
                 },
                 "type": "object"
+            },
+            "Employee": {
+                "title": "Employee",
+                "description": "Employee model",
+                "properties": {
+                    "id": {
+                        "description": "Employee ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "1"
+                    },
+                    "firstName": {
+                        "description": "Employee's first name",
+                        "type": "string",
+                        "example": "John"
+                    },
+                    "lastName": {
+                        "description": "Employee's last name",
+                        "type": "string",
+                        "example": "Doe"
+                    },
+                    "email": {
+                        "description": "Employee's email address",
+                        "type": "string",
+                        "example": "john.doe@example.com"
+                    },
+                    "phone": {
+                        "description": "Employee's phone number",
+                        "type": "string",
+                        "example": "+1 (123) 456-7890"
+                    },
+                    "department_id": {
+                        "description": "ID of the department to which the employee belongs",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "1"
+                    },
+                    "created_at": {
+                        "description": "Employee creation date",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-08-01T01:41:44.000000Z"
+                    },
+                    "updated_at": {
+                        "description": "Date of last employee update",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-08-01T02:15:10.000000Z"
+                    }
+                },
+                "type": "object"
             }
         }
     },
@@ -476,6 +901,10 @@
         {
             "name": "Departments",
             "description": "Endpoints for managing departments"
+        },
+        {
+            "name": "Employees",
+            "description": "Endpoints for managing employees"
         }
     ]
 }

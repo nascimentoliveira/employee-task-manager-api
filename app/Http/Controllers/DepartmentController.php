@@ -41,7 +41,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments = $this->repository->paginate();
+        $departments = $this->repository::orderBy('created_at', 'asc')->paginate();
         return DepartmentResource::collection($departments);
     }
 
@@ -51,6 +51,7 @@ class DepartmentController extends Controller
      *     summary="Create a new department",
      *     @OA\RequestBody(
      *         required=true,
+     *         description="Department object that needs to be added",
      *         @OA\JsonContent(
      *             @OA\Property(property="name", type="string", example="HR Department")
      *         )
@@ -136,6 +137,7 @@ class DepartmentController extends Controller
      *     ),
      *     @OA\RequestBody(
      *         required=true,
+     *         description="Department object that needs to be updated",
      *         @OA\JsonContent(
      *             @OA\Property(property="name", type="string", example="HR Department")
      *         )

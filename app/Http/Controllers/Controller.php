@@ -20,7 +20,7 @@ use Illuminate\Routing\Controller as BaseController;
  *     @OA\Property(property="current_page", type="integer", description="Current page number", example=3),
  *     @OA\Property(property="from", type="integer", description="Starting record number", example=31),
  *     @OA\Property(property="last_page", type="integer", description="Last page number", example=5),
- *     @OA\Property(property="path", type="string", description="URL of the current page", example="https://example.com/api/departments"),
+ *     @OA\Property(property="path", type="string", description="URL of the current page", example="https://example.com/api/resource"),
  *     @OA\Property(property="per_page", type="integer", description="Number of records per page", example=15),
  *     @OA\Property(property="to", type="integer", description="Ending record number", example=45),
  *     @OA\Property(property="total", type="integer", description="Total number of records", example=15),
@@ -30,11 +30,11 @@ use Illuminate\Routing\Controller as BaseController;
  * @OA\Schema(
  *     schema="PaginationLinks",
  *     title="Pagination Links",
- *     description="Pagination links",
- *     @OA\Property(property="first", type="string", example="https://example.com/api/departments?page=1"),
- *     @OA\Property(property="last", type="string", example="https://example.com/api/departments?page=5"),
- *     @OA\Property(property="prev", type="string", example="https://example.com/api/departments?page=2"),
- *     @OA\Property(property="next", type="string", example="https://example.com/api/departments?page=4"),
+ *     description="Links to navigate between paginated results",
+ *     @OA\Property(property="first", type="string", example="https://example.com/api/resource?page=1", description="URL of the first page"),
+ *     @OA\Property(property="last", type="string", example="https://example.com/api/resource?page=5", description="URL of the last page"),
+ *     @OA\Property(property="prev", type="string", example="https://example.com/api/resource?page=2", description="URL of the previous page"),
+ *     @OA\Property(property="next", type="string", example="https://example.com/api/resource?page=4", description="URL of the next page"),
  * )
  * 
  * @OA\Schema(
