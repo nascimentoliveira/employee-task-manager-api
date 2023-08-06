@@ -7,13 +7,6 @@ use App\Http\Requests\EmployeeRequest;
 use App\Http\Resources\EmployeeResource;
 use Illuminate\Http\Response;
 
-/**
- * @OA\Tag(
- *     name="Employees",
- *     description="Endpoints for managing employees"
- * )
- */
-
 class EmployeeController extends Controller
 {
     public function __construct(
@@ -52,13 +45,7 @@ class EmployeeController extends Controller
      *     @OA\RequestBody(
      *         description="Employee object that needs to be added",
      *         required=true,
-     *         @OA\JsonContent(
-     *             @OA\Property(property="firstName", type="string", example="John", description="First name of the employee"),
-     *             @OA\Property(property="lastName", type="string", example="Doe", description="Last name of the employee"),
-     *             @OA\Property(property="email", type="string", example="john.doe@example.com", description="Email address of the employee"),
-     *             @OA\Property(property="phone", type="string", example="123-456-7890", description="Phone number of the employee"),
-     *             @OA\Property(property="department_id", type="integer", example=1, description="ID of the department to which the employee belongs")
-     *         )
+     *         @OA\JsonContent(ref="#/components/schemas/EmployeeRequest")
      *     ),
      *     @OA\Response(
      *         response=201,
@@ -142,13 +129,7 @@ class EmployeeController extends Controller
      *     @OA\RequestBody(
      *         description="Employee object that needs to be updated",
      *         required=true,
-     *         @OA\JsonContent(
-     *             @OA\Property(property="firstName", type="string", example="John", description="First name of the employee"),
-     *             @OA\Property(property="lastName", type="string", example="Doe", description="Last name of the employee"),
-     *             @OA\Property(property="email", type="string", example="john.doe@example.com", description="Email address of the employee"),
-     *             @OA\Property(property="phone", type="string", example="123-456-7890", description="Phone number of the employee"),
-     *             @OA\Property(property="department_id", type="integer", example=1, description="ID of the department to which the employee belongs")
-     *         ),
+     *         @OA\JsonContent(ref="#/components/schemas/EmployeeRequest")
      *     ),
      *     @OA\Response(
      *         response=200,

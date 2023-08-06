@@ -7,13 +7,6 @@ use App\Http\Requests\DepartmentRequest;
 use App\Http\Resources\DepartmentResource;
 use Illuminate\Http\Response;
 
-/**
- * @OA\Tag(
- *     name="Departments",
- *     description="Endpoints for managing departments"
- * )
- */
-
 class DepartmentController extends Controller
 {
     public function __construct(
@@ -52,9 +45,7 @@ class DepartmentController extends Controller
      *     @OA\RequestBody(
      *         required=true,
      *         description="Department object that needs to be added",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="name", type="string", example="HR Department")
-     *         )
+     *         @OA\JsonContent(ref="#/components/schemas/DepartmentRequest")
      *     ),
      *     @OA\Response(
      *         response=201,
@@ -138,9 +129,7 @@ class DepartmentController extends Controller
      *     @OA\RequestBody(
      *         required=true,
      *         description="Department object that needs to be updated",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="name", type="string", example="HR Department")
-     *         )
+     *         @OA\JsonContent(ref="#/components/schemas/DepartmentRequest")
      *     ),
      *     @OA\Response(
      *         response=200,
