@@ -31,5 +31,10 @@ class Department extends Model
         'name',
     ];
 
+    public function employee()
+    {
+        return $this->hasMany(Employee::class, 'department_id', 'id');
+    }
+
     use HasFactory;
 }

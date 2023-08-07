@@ -34,7 +34,9 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = $this->repository::orderBy('created_at', 'asc')->paginate();
+        $employees = $this->repository::with('department')
+            ->orderBy('created_at', 'asc')
+            ->paginate();
         return EmployeeResource::collection($employees);
     }
 
@@ -111,7 +113,8 @@ class EmployeeController extends Controller
      */
     public function show(string $id)
     {
-        $employee = $this->repository->findOrFail($id);
+        $employee = $this->repository::with('department')
+            ->findOrFail($id);
         return new EmployeeResource($employee);
     }
 
