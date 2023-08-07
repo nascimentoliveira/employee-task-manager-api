@@ -1205,7 +1205,7 @@
                         "type": "string",
                         "example": "Finish writing the project report"
                     },
-                    "assign": {
+                    "assignee": {
                         "$ref": "#/components/schemas/Employee"
                     },
                     "due_date": {
