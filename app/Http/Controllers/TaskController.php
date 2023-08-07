@@ -34,7 +34,9 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = $this->repository->paginate();
+        $tasks = $this->repository::with('assignee.department')
+            ->orderBy('created_at', 'asc')
+            ->paginate();
         return TaskResource::collection($tasks);
     }
 
@@ -111,7 +113,8 @@ class TaskController extends Controller
      */
     public function show(string $id)
     {
-        $task = $this->repository->findOrFail($id);
+        $task = $this->repository::with('assignee.department')
+            ->findOrFail($id);
         return new TaskResource($task);
     }
 
